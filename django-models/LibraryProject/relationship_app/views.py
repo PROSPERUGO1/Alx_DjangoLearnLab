@@ -14,7 +14,7 @@ def list_books(request):
     """
     from .models import Book
     books = Book.objects.all().select_related('author')
-    return render(request, 'relationship_app/list_books.html', {'books': books})
+    return render(request, 'relationship_app/list_books.html', books=books)
 
 # Class-based view to display library details
 class LibraryDetailView(DetailView):
