@@ -4,35 +4,19 @@ from .models import Book, Library
 
 # Function-based view to list all books
 def list_books(request):
-"""Function-based view that lists all books"""
+    """Function-based view that lists all books"""
     books = Book.objects.all().select_related('author')
     return render(request, 'relationship_app/list_books.html', {'books': books})
 
 # Class-based view to display library details
 class LibraryDetailView(DetailView):
-"""Class-based view that displays details for a specific library"""
+    """Class-based view that displays details for a specific library"""
     model = Library
     template_name = 'relationship_app/library_detail.html'
     context_object_name = 'library'
 
     def get_context_data(self, **kwargs):
-"""Add extra context if needed"""
+        """Add extra context if needed"""
         context = super().get_context_data(**kwargs)
         # Library object is automatically available as 'library'
         return context
-URL.py
-from django.urls import path
-from . import views
-
-app_name = 'relationship_app'
-
-urlpatterns = [
-    # Function-based view: List all books
-    path('books/', views.list_books, name='list_books'),
-
-    # Class-based view: Library details
-    path('library/<int:pk>/', views.LibraryDetailView.as_view(), name='library_detail'),
-
-    # Optional: Add a library list view if needed
-    # path('libraries/', views.LibraryListView.as_view(), name='library_list'),
-]
