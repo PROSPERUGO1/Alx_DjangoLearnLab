@@ -1,73 +1,38 @@
-# Create your views here.
-from django.shortcuts import render, redirect
-from django.views.generic.detail import DetailView
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login as auth_login, logout as auth_logout
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from .models import Library
+from django.shortcuts import render
+from django.views.generic import DetailView
+from .models import Book, Library
 
 # Function-based view to list all books
 def list_books(request):
-    """
-    Function-based view that lists all books in the database.
-    """
-    from .models import Book
+"""Function-based view that lists all books"""
     books = Book.objects.all().select_related('author')
-    return render(request, 'relationship_app/list_books.html', books=books)
+    return render(request, 'relationship_app/list_books.html', {'books': books})
 
 # Class-based view to display library details
 class LibraryDetailView(DetailView):
-    """
-    Class-based view that displays details for a specific library.
-    """
+"""Class-based view that displays details for a specific library"""
     model = Library
     template_name = 'relationship_app/library_detail.html'
     context_object_name = 'library'
-    
-    def get_queryset(self):
-        # Optimize query by prefetching related books and their authors
-        return Library.objects.prefetch_related('books__author')
 
-# Authentication Views
+    def get_context_data(self, **kwargs):
+"""Add extra context if needed"""
+        context = super().get_context_data(**kwargs)
+        # Library object is automatically available as 'library'
+        return context
+URL.py
+from django.urls import path
+from . import views
 
-def register(request):
-    """
-    View for user registration.
-    """
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            auth_login(request, user)
-            messages.success(request, 'Registration successful!')
-            return redirect('list_books')
-    else:
-        form = UserCreationForm()
-    
-    return render(request, 'relationship_app/register.html', {'form': form})
+app_name = 'relationship_app'
 
-def login_view(request):
-    """
-    View for user login.
-    """
-    if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            auth_login(request, user)
-            messages.success(request, f'Welcome back, {user.username}!')
-            return redirect('list_books')
-    else:
-        form = AuthenticationForm()
-    
-    return render(request, 'relationship_app/login.html', {'form': form})
+urlpatterns = [
+    # Function-based view: List all books
+    path('books/', views.list_books, name='list_books'),
 
-@login_required
-def logout_view(request):
-    """
-    View for user logout.
-    """
-    auth_logout(request)
-    messages.info(request, 'You have been logged out.')
-    return render(request, 'relationship_app/logout.html')
+    # Class-based view: Library details
+    path('library/<int:pk>/', views.LibraryDetailView.as_view(), name='library_detail'),
+
+    # Optional: Add a library list view if needed
+    # path('libraries/', views.LibraryListView.as_view(), name='library_list'),
+]
