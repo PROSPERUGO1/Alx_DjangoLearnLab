@@ -1,0 +1,25 @@
+
+{% if messages %}
+  {% for message in messages %}
+    <p>{{ message }}</p> 
+  {% endfor %}
+{% endif %}
+
+<h1>Hello {{ user.username }}, select an option</h1>
+<ul>
+  {% if perms.bookshelf.can_view %}
+    <li><a href="{% url 'list_books' %}">Read Book</a></li>
+  {% endif %}
+  
+  {% if perms.bookshelf.can_create %}
+    <li><a href="{% url 'add_book' %}">Add Book</a></li>
+  {% endif %}
+
+  {% if perms.bookshelf.can_edit %}
+    <li><a href="">Edit Book</a></li>
+  {% endif %}
+
+  {% if perms.bookshelf.can_delete %}
+    <li><a href="">Delete Book</a></li>
+  {% endif %}
+</ul>

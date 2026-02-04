@@ -1,0 +1,9 @@
+<h1>Select a Book</h1>
+
+<ul>
+  {% for book in books %}
+    <li>
+      <a href="{% url 'read_book' book.pk %}">{{ book.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
