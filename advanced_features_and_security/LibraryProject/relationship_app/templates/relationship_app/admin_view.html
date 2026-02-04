@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard</title>
+<style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header { background: #2c3e50; color: white; padding: 20px; border-radius: 5px; margin-bottom: 20px; }
+        .content { background: #ecf0f1; padding: 20px; border-radius: 5px; }
+        .nav-links { margin-top: 20px; }
+        .nav-links a { 
+            display: inline-block; 
+            margin-right: 15px; 
+            padding: 10px 20px; 
+            background: #3498db; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 4px; 
+        }
+        .nav-links a:hover { background: #2980b9; }
+        .role-badge { 
+            display: inline-block; 
+            padding: 5px 10px; 
+            background: #e74c3c; 
+            color: white; 
+            border-radius: 3px; 
+            font-weight: bold; 
+        }
+        .admin-features { margin-top: 30px; }
+        .feature { 
+            background: white; 
+            padding: 15px; 
+            margin-bottom: 15px; 
+            border-left: 4px solid #2c3e50; 
+            border-radius: 4px; 
+        }
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>🔐 Admin Dashboard</h1>
+<p>Welcome, <strong>{{ user.username }}</strong>! <span class="role-badge">{{ role }}</span></p>
+</div>
+
+<div class="content">
+<h2>Administrator Privileges</h2>
+<p>As an administrator, you have full access to the system.</p>
+
+<div class="admin-features">
+<div class="feature">
+<h3>📊 System Management</h3>
+<p>Manage users, roles, and system settings.</p>
+</div>
+
+<div class="feature">
+<h3>👥 User Administration</h3>
+<p>Create, edit, and delete user accounts. Assign and modify user roles.</p>
+</div>
+
+<div class="feature">
+<h3>📚 Library Configuration</h3>
+<p>Configure library settings and manage system-wide configurations.</p>
+</div>
+
+<div class="feature">
+<h3>📈 Analytics & Reports</h3>
+<p>Access system analytics and generate detailed reports.</p>
+</div>
+</div>
+
+<div class="nav-links">
+<a href="{% url 'list_books' %}">📚 View Books</a>
+<a href="{% url 'logout' %}">🚪 Logout</a>
+</div>
+</div>
+</div>
+</body>
+</html>
