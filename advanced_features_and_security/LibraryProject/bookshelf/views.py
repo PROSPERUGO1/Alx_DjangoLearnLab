@@ -1,25 +1,48 @@
-from django.contrib import admin
-from .models import Book, CustomUser
-from django.contrib.auth.admin import UserAdmin
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import permission_required
+from django.contrib import messages
+from .models import Book
+from .forms import ExampleForm, CreateBookForm
 
-# Register your models here.
+def index(request):
+  return render(request, 'bookshelf/index.html')
 
-class BookAdmin(admin.ModelAdmin):
-  list_display = ('title', 'author', 'publication_year')
-  list_filter = ('title',"publication_year")
-  search_fields = ('title', 'author', 'publication_year')
-  
-@admin.register(CustomUser)
-class CustomUserAdmin(UserAdmin):
-  model = CustomUser
-  
-  fieldsets = UserAdmin.fieldsets + (
-    ("Additional Info", {
-      "fields": ("date_of_birth", "profile_photo"),
-    }),
-  )
-  
-  list_display = ("username", "email", "date_of_birth", "is_staff")
+@permission_required('can_add_book', raise_exception=True)
+def add_book(request):
+  if request.method == "POST":
+    form = CreateBookForm(request.POST)
+    if form.is_valid():
+      new_book = form.save()
+      messages.success(request, f"\"{new_book.title}\" was successfully added to Library")
+      return redirect('/')
+  else:
+    form = CreateBookForm()
+    
+  context = {'form': form}
+  return render(request, 'crud_book/add_book.html', context)
 
-admin.site.register(Book, BookAdmin)
-# admin.site.register(CustomUser, CustomUserAdmin)
+
+def book_list(request):
+  books = Book.objects.all()
+  
+  return render(request, 'bookshelf/book_list.html',{"books": books})
+
+
+@permission_required('can_view_book', raise_exception=True)
+def view_book(request, pk):
+  get_book = Book.objects.get(pk=pk)
+  
+  book = {
+    'title': get_book.title,
+    'author': get_book.author,
+    'pub_year': get_book.publication_year,
+    'description': get_book.description
+  }
+  
+  return render(request, 'crud_book/read_book.html', {'book': book})
+
+
+def example_form_view(request):
+  form = ExampleForm()
+  
+  return render(request, 'bookshelf/form_example.html', {'form': form})
