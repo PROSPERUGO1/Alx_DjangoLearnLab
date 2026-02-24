@@ -1,46 +1,44 @@
 {% extends "blog/base.html" %}
-{% load static %}
 
-{% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
-{% endblock %}
+{% block title %}Login - Django Blog{% endblock %}
 
 {% block content %}
-<div class="auth-container">
-    <div class="auth-card">
-        <h2>Welcome Back</h2>
-        <p class="auth-subtitle">Please sign in to your account</p>
-
-        <form method="POST">
-            {% csrf_token %}
-
-            {% for field in form %}
-            <div class="form-group">
-                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                {{ field }}
-                {% if field.errors %}
-                    <ul class="errorlist">
-                        {% for error in field.errors %}
-                            <li>{{ error }}</li>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Login</h2>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
                         {% endfor %}
-                    </ul>
-                {% endif %}
+                    {% endif %}
+                    
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="username">Username:</label>
+                            <input type="text" name="username" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                    
+                    <div class="border-top pt-3 mt-3">
+                        <small class="text-muted">
+                            Need an account? <a href="{% url 'register' %}">Sign Up</a>
+                        </small>
+                    </div>
+                </div>
             </div>
-            {% endfor %}
-
-            {% if form.non_field_errors %}
-                <ul class="errorlist">
-                    {% for error in form.non_field_errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-
-            <button type="submit" class="btn-primary">Log In</button>
-        </form>
-
-        <div class="auth-footer">
-            <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
         </div>
     </div>
 </div>
