@@ -1,0 +1,63 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<div class="container" style="background: white; padding: 40px; border-radius: 8px; margin-top: 20px;">
+    
+    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+            <img src="{{ object.author.profile.image.url }}" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 15px;">
+            <div>
+                <h4 style="margin: 0;">{{ object.author }}</h4>
+                <small style="color: #777;">{{ object.published_date|date:"F d, Y" }}</small>
+            </div>
+        </div>
+
+        {% if object.author == user %}
+            <div>
+                <a href="{% url 'post-update' object.id %}" style="background: #2563eb; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; margin-right: 5px;">Edit</a>
+                <a href="{% url 'post-delete' object.id %}" style="background: #dc2626; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px;">Delete</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+
+    <h1 style="color: #111827;">{{ object.title }}</h1>
+    <p style="font-size: 1.1rem; line-height: 1.8; color: #374151;">
+        {{ object.content }}
+    </p>
+
+    <div class="post-tags">
+    {% for tag in post.tags.all %}
+        <a href="{% url 'posts-by-tag' tag.slug %}" class="tag-badge">#{{ tag.name }}</a>
+    {% endfor %}
+    </div>
+
+    <hr style="margin: 3rem 0; border-top: 1px solid #e5e7eb;">
+
+    <div class="comments-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3>Comments ({{ object.comments.count }})</h3>
+            <a href="{% url 'comment-create' object.id %}" class="btn-create" style="font-size: 0.8rem;">+ Add Comment</a>
+        </div>
+
+        {% for comment in object.comments.all %}
+            <div class="comment-card" style="background: #f9fafb; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #e5e7eb;">
+                <div style="display: flex; justify-content: space-between;">
+                    <strong>{{ comment.author }}</strong>
+                    <small style="color: #6b7280;">{{ comment.date_posted|date:"F d, Y" }}</small>
+                </div>
+                <p style="margin-top: 5px; color: #374151;">{{ comment.content }}</p>
+                
+                {% if user == comment.author %}
+                    <div style="margin-top: 10px; font-size: 0.85rem;">
+                        <a href="{% url 'comment-update' comment.id %}" style="color: #2563eb; margin-right: 10px;">Edit</a>
+                        <a href="{% url 'comment-delete' comment.id %}" style="color: #dc2626;">Delete</a>
+                    </div>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p style="color: #6b7280; font-style: italic;">No comments yet. Be the first!</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

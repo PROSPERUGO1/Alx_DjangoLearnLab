@@ -1,0 +1,147 @@
+/* 1. Layout & Background */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 85vh;
+    background-color: #f3f4f6; 
+    padding: 2rem;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.auth-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 420px;
+    padding: 3rem 2.5rem;
+    border-radius: 12px;
+    /* crazy shadow: subtle and multi-layered */
+    box-shadow: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.05), 
+        0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0,0,0,0.02);
+}
+
+.auth-card h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #111827; /* Almost black */
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.025em; /* Tighter tracking for a modern look */
+    text-align: center;
+}
+
+.auth-subtitle {
+    text-align: center;
+    color: #6b7280; /* Muted grey */
+    font-size: 0.95rem;
+    margin-bottom: 2.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #1f2937;
+    background-color: #f9fafb; 
+    border: 1px solid #e5e7eb; 
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+}
+
+.form-group input:focus {
+    background-color: #fff;
+    border-color: #4b5563; 
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(229, 231, 235, 0.5); 
+}
+
+.btn-primary {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #1f2937; 
+    border: 1px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, transform 0.05s;
+    margin-top: 1rem;
+}
+
+.btn-primary:hover {
+    background-color: #111827; 
+}
+
+.btn-primary:active {
+    transform: scale(0.99); 
+}
+
+.auth-footer {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.auth-footer a {
+    color: #4b5563;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.auth-footer a:hover {
+    color: #111827;
+    border-bottom-color: #111827;
+}
+
+.helptext, .form-text {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+ul.errorlist {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0 0;
+}
+
+ul.errorlist li {
+    font-size: 0.875rem;
+    color: #dc2626; 
+    background-color: #fef2f2;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-top: 0.25rem;
+    border-left: 3px solid #dc2626;
+}
+
+.alert{
+    font-size: 0.875rem;
+    color: #dc2626; 
+    background-color: #fef2f2;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-top: 0.25rem;
+    border-left: 3px solid #dc2626;
+}

@@ -1,0 +1,203 @@
+/* --- 1. Variables & Reset --- */
+:root {
+    --primary: #2563eb;       /* Modern Blue */
+    --primary-hover: #1d4ed8;
+    --dark-bg: #111827;       /* Dark Charcoal */
+    --light-bg: #f9fafb;      /* Light Grey Background */
+    --text-main: #1f2937;
+    --text-muted: #6b7280;
+    --white: #ffffff;
+    --border: #e5e7eb;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background-color: var(--light-bg);
+    color: var(--text-main);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- 2. Base Layout (Mobile Default) --- */
+.container {
+    width: 100%;
+    padding: 0 1rem; /* Small padding for phones */
+    margin: 0 auto;
+}
+
+/* --- 3. The Navbar (Mobile First) --- */
+.site-header {
+    background-color: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: column; /* Stack items vertically on mobile */
+    align-items: center;    /* Center everything */
+    padding: 1rem 0;
+    gap: 1rem;              /* Space between Logo and Links */
+}
+
+/* Logo Styling */
+.nav-brand {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--dark-bg);
+    text-decoration: none;
+    letter-spacing: -0.05em;
+}
+.brand-accent { color: var(--primary); }
+
+/* Menu Links (Mobile: Row of small items) */
+.nav-menu {
+    display: flex;
+    flex-wrap: wrap;        /* Allow wrapping on very small phones */
+    justify-content: center;
+    gap: 15px;
+    list-style: none;
+    width: 100%;
+}
+
+.nav-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Buttons (Mobile: Easy to tap) */
+.btn-create, 
+.btn-register {
+    background-color: var(--dark-bg);
+    color: var(--white);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+.btn-register { background-color: var(--primary); }
+
+/* Logout Button Reset */
+.btn-logout {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--text-muted);
+}
+
+/* --- 4. Content Area --- */
+.main-content {
+    padding: 2rem 0;
+    flex: 1;
+}
+
+/* Cards (Auth/Profile) - Full width on mobile */
+.auth-card, .profile-card, .post-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+/* --- 5. Tablet & Desktop Breakpoints --- */
+
+/* Tablet (min-width: 768px) */
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+        padding: 0 1.5rem;
+    }
+
+    .navbar {
+        flex-direction: row;        /* Switch to Horizontal Row */
+        justify-content: space-between;
+        height: 70px;               /* Fixed height */
+        padding: 0;                 /* Reset padding */
+        gap: 0;
+    }
+
+    .nav-menu {
+        width: auto;                /* Reset width */
+        gap: 24px;                  /* More space between links */
+    }
+
+    .btn-create, .btn-register {
+        padding: 0.6rem 1.25rem;    /* Larger buttons */
+        font-size: 0.95rem;
+    }
+}
+
+/* Desktop (min-width: 1024px) */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1100px;
+    }
+
+    .nav-link:hover {
+        color: var(--dark-bg);      /* Hover effects only on desktop */
+    }
+
+    .btn-create:hover, .btn-register:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* Search Bar Styling */
+.search-form {
+    display: flex;
+    align-items: center;
+    background: #f3f4f6;
+    border-radius: 20px;
+    padding: 5px 15px;
+    margin-right: 15px;
+}
+.search-form input {
+    border: none;
+    background: transparent;
+    outline: none;
+    padding: 5px;
+    font-size: 0.9rem;
+}
+.search-form button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Tag Styling */
+.tag-badge {
+    display: inline-block;
+    background-color: #e5e7eb;
+    color: #4b5563;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    text-decoration: none;
+    margin-right: 5px;
+    margin-top: 5px;
+    transition: background 0.2s;
+}
+.tag-badge:hover {
+    background-color: #d1d5db;
+    color: #111827;
+}

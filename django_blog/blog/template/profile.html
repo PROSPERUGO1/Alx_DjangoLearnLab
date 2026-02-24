@@ -1,0 +1,65 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card">
+        
+        <div class="profile-header">
+            <div class="avatar-container">
+                <img class="profile-pic" src="{{ user.profile.image.url }}" alt="Profile Picture">
+            </div>
+            <h2>{{ user.username }}</h2>
+            <p class="profile-email">{{ user.email }}</p>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data" class="profile-form">
+            {% csrf_token %}
+            
+            <div class="form-section">
+                <h3>Account Info</h3>
+                {% for field in u_form %}
+                <div class="form-group">
+                    <label>{{ field.label }}</label>
+                    {{ field }}
+                    {% for error in field.errors %}<div class="error">{{ error }}</div>{% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="form-section">
+                <h3>Profile Details</h3>
+                {% for field in p_form %}
+                <div class="form-group">
+                    <label>{{ field.label }}</label>
+                    {{ field }}
+                    {% for error in field.errors %}<div class="error">{{ error }}</div>{% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <button type="submit" class="btn-primary">Save Changes</button>
+        </form>
+
+        <hr class="divider">
+
+        <div class="logout-section">
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn-danger">Log Out</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

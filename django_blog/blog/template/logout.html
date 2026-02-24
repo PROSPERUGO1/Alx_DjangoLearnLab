@@ -1,0 +1,33 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card" style="text-align: center;">
+        
+        <h2>Signed Out</h2>
+        <p class="auth-subtitle">You have been successfully logged out.</p>
+
+        <div style="margin: 2rem 0; font-size: 3rem;">
+            👋
+        </div>
+
+        <p style="margin-bottom: 1.5rem; color: #4b5563;">
+            Thanks for visiting. See you again soon!
+        </p>
+
+        <a href="{% url 'login' %}" class="btn-primary" style="text-decoration: none; display: inline-block;">
+            Log In Again
+        </a>
+
+        <div class="auth-footer">
+            <p>Return to <a href="{% url 'home' %}">Home Page</a></p>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

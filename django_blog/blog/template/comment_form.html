@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/auth.css' %}">{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h2>
+            {% if "update" in request.path %}Edit Comment{% else %}Add Comment{% endif %}
+        </h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.content }}
+            </div>
+            <button type="submit" class="btn-primary">Post Comment</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

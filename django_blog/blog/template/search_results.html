@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<div class="container">
+    <h2>Search Results for "{{ query }}"</h2>
+    <hr>
+    
+    {% if posts %}
+        {% for post in posts %}
+            <article class="post-card">
+                <h3><a href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h3>
+                <p>{{ post.content|truncatewords:30 }}</p>
+                <small>By {{ post.author }} | {{ post.published_date|date:"F d, Y" }}</small>
+            </article>
+        {% endfor %}
+    {% else %}
+        <p>No posts found matching your query.</p>
+        <a href="{% url 'blog-home' %}" class="btn-primary">Back to Home</a>
+    {% endif %}
+</div>
+{% endblock %}

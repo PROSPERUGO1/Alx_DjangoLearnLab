@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/auth.css' %}">{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h2 style="color: #dc2626;">Delete Post?</h2>
+        <p>Are you sure you want to delete the post "<strong>{{ object.title }}</strong>"?</p>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn-primary" style="background: #dc2626;">Yes, Delete</button>
+            <a href="{% url 'post-detail' object.id %}" style="display: block; text-align: center; margin-top: 15px; color: #666;">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
