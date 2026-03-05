@@ -117,10 +117,10 @@ class PostViewSet(viewsets.ModelViewSet):
         Unlike a post
         """
         # Use get_object_or_404 from django.shortcuts
-        post = get_object_or_404(Post, pk=pk)
+        post = generics.get_object_or_404(Post, pk=pk)
         user = request.user
         
-        like = get_object_or_404(Like, user=user, post=post)
+        like = Like.objects.get_or_create(user=request.user, post=post)
         like.delete()
         
         return Response({
